@@ -39,21 +39,9 @@ const orderSchema = mongoose.Schema(
       required: true,
     },
     status: {
-      isPaid: {
-        type: Boolean,
-        required: true,
-        default: false,
-      },
-      isDelivered: {
-        type: Boolean,
-        required: true,
-        default: false,
-      },
-      isApproved: {
-        type: Boolean,
-        required: true,
-        default: false,
-      },
+      type: String,
+      required: true,
+      default: 'not approved',
     },
     paymentResult: {
       id: { type: String },

@@ -26,6 +26,9 @@
             </p>
             <el-divider></el-divider>
             <strong>Статус:&nbsp; </strong>
+            <span>
+              {{ status }}
+            </span>
             <el-divider></el-divider>
             <p class="mb-16">
               <strong>Тип доставки:&nbsp; </strong>
@@ -180,10 +183,15 @@ export default {
       return this.fetchedOrder?.user?.email || "";
     },
     isPaid() {
-      return this.fetchedOrder?.status?.isPaid;
+      return this.fetchedOrder?.isPaid;
     },
     isDelivered() {
-      return this.fetchedOrder?.status?.isDelivered;
+      return this.fetchedOrder?.isDelivered;
+    },
+    status() {
+      return this.fetchedOrder?.status === "not approved"
+        ? "Не подтвержден"
+        : "Подтверджен";
     }
   }
 };
