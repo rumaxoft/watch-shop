@@ -26,18 +26,20 @@
             </p>
             <el-divider></el-divider>
             <strong>Статус:&nbsp; </strong>
-            <span>
-              {{
-                fetchedOrder.status === "not accepted"
-                  ? "не подтвержден"
-                  : "не известно"
-              }}
-            </span>
             <el-divider></el-divider>
-            <strong>Тип доставки:&nbsp; </strong>
-            <span>
-              {{ fetchedOrder.deliveryType }}
-            </span>
+            <p class="mb-16">
+              <strong>Тип доставки:&nbsp; </strong>
+              <span>
+                {{ fetchedOrder.deliveryType }}
+              </span>
+            </p>
+            <el-alert
+              class="mt-16"
+              :closable="false"
+              :title="isDelivered ? 'Доставлен' : 'Не доставлен'"
+              :type="isDelivered ? 'success' : 'error'"
+            >
+            </el-alert>
             <div v-if="fetchedOrder.deliveryType === 'Доставка курьером'">
               <b>Адрес доставки : &nbsp;</b>
               <span>
@@ -50,10 +52,19 @@
               {{ fetchedOrder.phone }}
             </span>
             <el-divider></el-divider>
-            <strong>Оплата:&nbsp;</strong>
-            <span>
-              {{ fetchedOrder.paymentMethod }}
-            </span>
+            <p class="mb-16">
+              <strong>Оплата:&nbsp;</strong>
+              <span>
+                {{ fetchedOrder.paymentMethod }}
+              </span>
+            </p>
+            <el-alert
+              class="mt-16"
+              :closable="false"
+              :title="isPaid ? 'Оплачен' : 'Не оплачен'"
+              :type="isPaid ? 'success' : 'error'"
+            >
+            </el-alert>
             <el-divider></el-divider>
             <h3>Товары:</h3>
             <!-- <div class="mt-16" v-if="fetchedOrder.cartItems.length === 0">
@@ -129,7 +140,6 @@ export default {
       this.notify();
     }
   },
-  fetchOnServer: false,
   methods: {
     ...mapActions("orders", ["getOrderDetails"]),
     notify() {
@@ -148,8 +158,14 @@ export default {
       }
     }
   },
+  created() {
+    if (!this.userInfo._id) {
+      this.$router.push("/user/login");
+    }
+  },
   computed: {
     ...mapGetters("orders", ["fetchedOrder", "loading", "message", "error"]),
+    ...mapGetters("users", ["userInfo"]),
     shippingAddress() {
       return [
         this.fetchedOrder.shippingAddress?.country,
@@ -162,6 +178,12 @@ export default {
     },
     email() {
       return this.fetchedOrder?.user?.email || "";
+    },
+    isPaid() {
+      return this.fetchedOrder?.status?.isPaid;
+    },
+    isDelivered() {
+      return this.fetchedOrder?.status?.isDelivered;
     }
   }
 };
