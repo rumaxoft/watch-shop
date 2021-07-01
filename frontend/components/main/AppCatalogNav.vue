@@ -89,7 +89,7 @@ export default {
     }
   },
   async fetch() {
-    if (this.catalog) {
+    if (!this.catalog) {
       await this.fetchCatalog();
     }
   },
