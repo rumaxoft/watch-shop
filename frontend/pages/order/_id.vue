@@ -38,7 +38,7 @@
             <span>
               {{ fetchedOrder.deliveryType }}
             </span>
-            <div v-if="shippingAddress.length > 0">
+            <div v-if="fetchedOrder.deliveryType === 'Доставка курьером'">
               <b>Адрес доставки : &nbsp;</b>
               <span>
                 {{ shippingAddress }}
