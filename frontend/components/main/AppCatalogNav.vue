@@ -1,5 +1,5 @@
 <template>
-  <div class="app-catalog-navigation">
+  <div v-loading="loading" class="app-catalog-navigation">
     <button
       @click="showNav = true"
       class="app-catalog-navigation__menu-button"
@@ -63,20 +63,16 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from "vuex";
 export default {
   name: "AppCatalogNav",
-  props: {
-    catalog: {
-      type: Object,
-      required: true
-    }
-  },
   data: () => ({
     visibleCategory: null,
     categoriesHistory: [],
     showNav: false
   }),
   methods: {
+    ...mapActions("catalog", ["fetchCatalog"]),
     next(item, e) {
       e.preventDefault();
 
@@ -92,8 +88,17 @@ export default {
       this.visibleCategory = this.categoriesHistory.pop();
     }
   },
+  async fetch() {
+    if (this.catalog) {
+      await this.fetchCatalog();
+    }
+  },
   created() {
+    console.log(this.catalog);
     this.visibleCategory = this.catalog;
+  },
+  computed: {
+    ...mapGetters("catalog", ["catalog", "loading", "errror"])
   }
 };
 </script>
