@@ -50,13 +50,11 @@
       <el-table-column prop="amount" width="100" label="Сумма">
       </el-table-column>
       <el-table-column
-        prop="tag"
-        label="Статус"
+        prop="paid"
+        label="Оплата"
         :filters="[
-          { text: 'не подтвержден', value: 'not accepted' },
-          { text: 'не оплачен', value: 'Office' },
-          { text: 'оплачен', value: 'Office' },
-          { text: 'доставлен', value: 'Office' }
+          { text: 'не оплачен', value: 'notPaid' },
+          { text: 'оплачен', value: 'paid' }
         ]"
         :filter-method="filterTag"
         filter-placement="bottom-end"
@@ -65,9 +63,31 @@
         <template slot-scope="scope">
           <el-tag
             size="small"
-            :type="scope.row.tag === 'не подтверджен' ? 'warning' : 'success'"
+            :type="scope.row.paid === 'не оплачен' ? 'warning' : 'success'"
             disable-transitions
-            >{{ scope.row.tag }}</el-tag
+            >{{ scope.row.paid }}</el-tag
+          >
+        </template>
+      </el-table-column>
+      <el-table-column
+        prop="delivered"
+        label="Оплата"
+        :filters="[
+          { text: 'не доставлен', value: 'notDelivered' },
+          { text: 'доставлен', value: 'delivered' }
+        ]"
+        :filter-method="filterTag"
+        filter-placement="bottom-end"
+        width="120"
+      >
+        <template slot-scope="scope">
+          <el-tag
+            size="small"
+            :type="
+              scope.row.delivered === 'не доставлен' ? 'warning' : 'success'
+            "
+            disable-transitions
+            >{{ scope.row.delivered }}</el-tag
           >
         </template>
       </el-table-column>
@@ -124,7 +144,8 @@ export default {
           date: new Intl.DateTimeFormat("ru-RU").format(new Date(el.createdAt)),
           products: el.orderItems,
           amount: el.totalPrice,
-          tag: el.status === "not accepted" ? "не подтверджен" : "не известно"
+          paid: el.isPaid ? "оплачен" : "не оплачен",
+          delivered: el.isDelivered ? "доставлен" : "не доставлен"
         };
       });
     }

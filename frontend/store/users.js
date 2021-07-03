@@ -1,3 +1,4 @@
+import { ORDER_LIST_RESET } from "~/constants/order-constants";
 import {
   USER_INITIALIZE_STATE,
   USER_LOGIN_REQUEST,
@@ -220,6 +221,7 @@ export const actions = {
         window.localStorage.removeItem("userInfo");
       }
       commit(USER_LOGOUT);
+      commit(`orders/${ORDER_LIST_RESET}`, null, { root: true });
     } catch (error) {
       const errorMessage = error.response?.data?.message
         ? error.response.data.message
