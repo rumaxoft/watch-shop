@@ -64,7 +64,7 @@
             <el-alert
               class="mt-16"
               :closable="false"
-              :title="isPaid ? 'Оплачен' : 'Не оплачен'"
+              :title="isPaid ? `Оплачен, ${orderPaidAt}` : 'Не оплачен'"
               :type="isPaid ? 'success' : 'error'"
             >
             </el-alert>
@@ -119,6 +119,15 @@
             </div>
             <el-alert v-show="this.error" :title="this.error" type="error">
             </el-alert>
+            <div
+              v-loading="loadingPay"
+              v-if="
+                !fetchedOrder.isPaid && fetchedOrder.paymentMethod === 'PayPal'
+              "
+            >
+              <el-divider></el-divider>
+              <component :is="payPalButton" v-bind="payPalProps"> </component>
+            </div>
           </el-card>
         </el-col>
       </el-row>
@@ -126,7 +135,8 @@
   </client-only>
 </template>
 <script>
-import { mapActions, mapGetters } from "vuex";
+import { mapActions, mapGetters, mapMutations } from "vuex";
+import Vue from "vue";
 export default {
   name: "OrderDetails",
   validate({ params }) {
@@ -134,17 +144,47 @@ export default {
     return isVerified;
   },
   data() {
-    return {};
+    return {
+      sdkReady: false,
+      payPalButton: null,
+      buttonLoading: false
+    };
   },
   async fetch() {
+    console.log("fetch");
     try {
       await this.getOrderDetails(this.$route.params.id);
+      if (
+        this.fetchedOrder.paymentMethod === "PayPal" &&
+        !this.fetchedOrder.isPaid
+      ) {
+        await this.addPaypalScript();
+      }
     } catch (error) {
       this.notify();
     }
   },
+  fetchOnServer: false,
+  fetchKey(getCounter) {
+    return this.$route.params.id + "-" + getCounter("orderDetails");
+  },
   methods: {
-    ...mapActions("orders", ["getOrderDetails"]),
+    ...mapActions("orders", ["getOrderDetails", "payOrder"]),
+    ...mapMutations("orders", ["ORDER_PAY_RESET"]),
+    async addPaypalScript() {
+      const { data: clientId } = await this.$axios.get(
+        "http://localhost:5050/api/config/paypal"
+      );
+      const script = document.createElement("script");
+      script.type = "text/javascript";
+      script.src = `https://www.paypal.com/sdk/js?client-id=${clientId}&currency=RUB`;
+      script.async = true;
+      script.onload = () => {
+        this.sdkReady = true;
+        this.payPalButton = window.paypal.Buttons.driver("vue", Vue);
+      };
+      document.body.appendChild(script);
+    },
     notify() {
       if (this.message) {
         this.$notify({
@@ -159,6 +199,14 @@ export default {
           position: "bottom-right"
         });
       }
+      if (this.alert) {
+        this.$message({
+          showClose: true,
+          duration: 10000,
+          message: this.alert,
+          type: "success"
+        });
+      }
     }
   },
   created() {
@@ -166,8 +214,24 @@ export default {
       this.$router.push("/user/login");
     }
   },
+  watch: {
+    successPay: async function(val) {
+      if (val) {
+        this.ORDER_PAY_RESET();
+        await this.getOrderDetails(this.$route.params.id);
+      }
+    }
+  },
   computed: {
-    ...mapGetters("orders", ["fetchedOrder", "loading", "message", "error"]),
+    ...mapGetters("orders", [
+      "fetchedOrder",
+      "loading",
+      "message",
+      "error",
+      "successPay",
+      "loadingPay",
+      "alert"
+    ]),
     ...mapGetters("users", ["userInfo"]),
     shippingAddress() {
       return [
@@ -192,6 +256,46 @@ export default {
       return this.fetchedOrder?.status === "not approved"
         ? "Не подтвержден"
         : "Подтверджен";
+    },
+    payPalComponent() {
+      return this.payPalButton || "";
+    },
+    payPalProps() {
+      return {
+        ["on-approve"]: this.onApprove,
+        ["create-order"]: this.createOrder,
+        ["env"]: "sandbox"
+      };
+    },
+    createOrder: function() {
+      return (data, actions) => {
+        return actions.order.create({
+          purchase_units: [
+            {
+              amount: {
+                value: this.fetchedOrder.totalPrice
+              }
+            }
+          ]
+        });
+      };
+    },
+    onApprove: function() {
+      return (data, actions) => {
+        return actions.order.capture().then(async details => {
+          // This function shows a otransaction success message to your buyer.
+          await this.payOrder({
+            orderId: this.fetchedOrder._id,
+            paymentResult: details
+          });
+          this.notify();
+        });
+      };
+    },
+    orderPaidAt() {
+      return new Intl.DateTimeFormat("ru-RU").format(
+        new Date(this.fetchedOrder.paidAt)
+      );
     }
   }
 };
