@@ -21,10 +21,7 @@
             </el-input>
           </keep-alive>
         </form>
-        <AppCatalogNav
-          class="appnavigation__app-catalog-nav"
-          :catalog="catalog"
-        />
+        <AppCatalogNav class="appnavigation__app-catalog-nav" />
       </div>
       <div class="appnavigation__contact">
         <a
@@ -204,12 +201,6 @@ export default {
   computed: {
     ...mapGetters("cart", ["cartItems"]),
     ...mapGetters("users", ["userInfo", "message", "error"])
-  },
-  async fetch() {
-    const { data } = await this.$axios.get(
-      `http://localhost:5050/api/categories`
-    );
-    this.catalog = data;
   }
 };
 </script>

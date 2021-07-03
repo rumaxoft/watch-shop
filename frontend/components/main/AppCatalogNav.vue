@@ -1,5 +1,5 @@
 <template>
-  <div v-loading="loading" class="app-catalog-navigation">
+  <div class="app-catalog-navigation">
     <button
       @click="showNav = true"
       class="app-catalog-navigation__menu-button"
@@ -22,9 +22,7 @@
           <i class="el-icon-we-chevron-left"></i>
         </button>
         <h3>
-          {{
-            visibleCategory.name == "root" ? "Каталог" : visibleCategory.name
-          }}
+          {{ visibleCategoryTitle }}
         </h3>
         <button
           @click="showNav = false"
@@ -63,16 +61,15 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from "vuex";
 export default {
   name: "AppCatalogNav",
   data: () => ({
-    visibleCategory: null,
+    catalog: {},
+    visibleCategory: {},
     categoriesHistory: [],
     showNav: false
   }),
   methods: {
-    ...mapActions("catalog", ["fetchCatalog"]),
     next(item, e) {
       e.preventDefault();
 
@@ -89,16 +86,24 @@ export default {
     }
   },
   async fetch() {
-    if (!this.catalog) {
-      await this.fetchCatalog();
+    if (!this.catalog?.name) {
+      try {
+        const { data } = await this.$axios.get(
+          `http://localhost:5050/api/categories`
+        );
+        this.catalog = data;
+        this.visibleCategory = data;
+      } catch (error) {
+        console.log(error);
+      }
     }
   },
-  created() {
-    console.log(this.catalog);
-    this.visibleCategory = this.catalog;
-  },
   computed: {
-    ...mapGetters("catalog", ["catalog", "loading", "errror"])
+    visibleCategoryTitle() {
+      return this.visibleCategory?.name === "root"
+        ? "Каталог"
+        : this.visibleCategory.name;
+    }
   }
 };
 </script>
