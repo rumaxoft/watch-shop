@@ -14,7 +14,8 @@
                 class="appnavigation__search-button"
                 slot="suffix"
                 @click="handleSearch"
-                type="submit"
+                type.native="submit"
+                type="text"
               >
                 <i class="el-input__icon el-icon-search"></i>
               </button>
