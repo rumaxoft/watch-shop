@@ -1,0 +1,17 @@
+version: "3.8"
+services:
+  database:
+    image: mongo:5
+    container_name: mongodb
+    # networks:
+    #   - backend
+    restart: unless-stopped
+    logging:
+      driver: none
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD}
+    # volumes:
+    #   - mongodb:/data/db
+    ports:
+      - "27017:${MONGO_PORT}"
