@@ -132,7 +132,8 @@ export default {
           });
           this.notify();
           if (this.userInfo._id) {
-            this.$router.push("/");
+            const redirect = this.redirect ? this.redirect : "/user/profile";
+            this.$router.push(redirect);
           }
         } else {
           console.log("error submit!!");

@@ -131,6 +131,10 @@ export default {
           {
             value: "card",
             label: "карта при получении"
+          },
+          {
+            value: "paypal",
+            label: "PayPal"
           }
         ]
       }
