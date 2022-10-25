@@ -61,6 +61,10 @@ export default {
           {
             value: "cash",
             label: "наличные при получении"
+          },
+          {
+            value: "paypal",
+            label: "PayPal"
           }
         ]
       },

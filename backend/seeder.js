@@ -1,5 +1,6 @@
 import mongoose from 'mongoose'
 import dotenv from 'dotenv'
+import crypto from 'crypto'
 import colors from 'colors'
 import users from './data/users.js'
 import products from './data/products.js'
@@ -27,7 +28,13 @@ const importData = async () => {
     await Brand.deleteMany()
     await Banner.deleteMany()
 
-    const createdUsers = await User.insertMany(users)
+    const usersWithEmailToken = users.map((el) => {
+      return {
+        emailToken: crypto.randomBytes(32).toString('hex'),
+        ...el,
+      }
+    })
+    const createdUsers = await User.insertMany(usersWithEmailToken)
     const createdBrands = await Brand.insertMany(brands)
 
     const adminUser = createdUsers[0]._id

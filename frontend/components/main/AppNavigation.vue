@@ -14,17 +14,15 @@
                 class="appnavigation__search-button"
                 slot="suffix"
                 @click="handleSearch"
-                type="submit"
+                type.native="submit"
+                type="text"
               >
                 <i class="el-input__icon el-icon-search"></i>
               </button>
             </el-input>
           </keep-alive>
         </form>
-        <AppCatalogNav
-          class="appnavigation__app-catalog-nav"
-          :catalog="catalog"
-        />
+        <AppCatalogNav class="appnavigation__app-catalog-nav" />
       </div>
       <div class="appnavigation__contact">
         <a
@@ -55,6 +53,14 @@
                   to="/user/profile"
                 >
                   Личный кабинет
+                </NuxtLink>
+              </el-dropdown-item>
+              <el-dropdown-item
+                v-if="userInfo && userInfo.isAdmin"
+                icon="el-icon-we-grid"
+              >
+                <NuxtLink class="appnavigation__user-dropdown-link" to="/admin">
+                  Панель администратора
                 </NuxtLink>
               </el-dropdown-item>
               <el-dropdown-item icon="el-icon-we-log-out">
@@ -204,12 +210,6 @@ export default {
   computed: {
     ...mapGetters("cart", ["cartItems"]),
     ...mapGetters("users", ["userInfo", "message", "error"])
-  },
-  async fetch() {
-    const { data } = await this.$axios.get(
-      `http://localhost:5050/api/categories`
-    );
-    this.catalog = data;
   }
 };
 </script>

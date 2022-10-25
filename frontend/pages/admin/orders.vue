@@ -12,7 +12,7 @@
 </template>
 <script>
 export default {
-  layout: "admin"
+  layout: "Admin"
 };
 </script>
 

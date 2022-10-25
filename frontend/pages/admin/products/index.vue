@@ -18,7 +18,7 @@
                 <i class="el-icon-we-folder"></i>
                 <span>Все категории</span>
               </template>
-                <el-menu-item index="1-1">item one</el-menu-item>
+              <el-menu-item index="1-1">item one</el-menu-item>
               <el-submenu index="1-4">
                 <template slot="title">item four</template>
                 <el-menu-item index="1-4-1">item one</el-menu-item>
@@ -31,30 +31,85 @@
           </el-menu>
         </aside>
         <div class="content">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis aliquam est aperiam earum perspiciatis neque aut voluptate fugit non ut, dolor quidem debitis aspernatur exercitationem nam libero consequatur officia corrupti!
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur animi officia impedit voluptates, quisquam quaerat eligendi tempora sunt! Error provident quisquam soluta a laborum obcaecati nam autem omnis nisi. Cumque?
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel, iste distinctio eveniet laboriosam magnam incidunt nemo blanditiis ullam praesentium dolor maiores nobis quasi rerum qui ab! Debitis et quas deleniti.
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Illum culpa reiciendis nemo beatae, totam minus, accusamus at magnam aperiam provident nisi quae tempore? Ad ratione autem dolorem natus nulla consectetur.
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis aliquam est aperiam earum perspiciatis neque aut voluptate fugit non ut, dolor quidem debitis aspernatur exercitationem nam libero consequatur officia corrupti!
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur animi officia impedit voluptates, quisquam quaerat eligendi tempora sunt! Error provident quisquam soluta a laborum obcaecati nam autem omnis nisi. Cumque?
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel, iste distinctio eveniet laboriosam magnam incidunt nemo blanditiis ullam praesentium dolor maiores nobis quasi rerum qui ab! Debitis et quas deleniti.
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Illum culpa reiciendis nemo beatae, totam minus, accusamus at magnam aperiam provident nisi quae tempore? Ad ratione autem dolorem natus nulla consectetur.
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis aliquam est aperiam earum perspiciatis neque aut voluptate fugit non ut, dolor quidem debitis aspernatur exercitationem nam libero consequatur officia corrupti!
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur animi officia impedit voluptates, quisquam quaerat eligendi tempora sunt! Error provident quisquam soluta a laborum obcaecati nam autem omnis nisi. Cumque?
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel, iste distinctio eveniet laboriosam magnam incidunt nemo blanditiis ullam praesentium dolor maiores nobis quasi rerum qui ab! Debitis et quas deleniti.
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Illum culpa reiciendis nemo beatae, totam minus, accusamus at magnam aperiam provident nisi quae tempore? Ad ratione autem dolorem natus nulla consectetur.
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis aliquam est aperiam earum perspiciatis neque aut voluptate fugit non ut, dolor quidem debitis aspernatur exercitationem nam libero consequatur officia corrupti!
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur animi officia impedit voluptates, quisquam quaerat eligendi tempora sunt! Error provident quisquam soluta a laborum obcaecati nam autem omnis nisi. Cumque?
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel, iste distinctio eveniet laboriosam magnam incidunt nemo blanditiis ullam praesentium dolor maiores nobis quasi rerum qui ab! Debitis et quas deleniti.
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Illum culpa reiciendis nemo beatae, totam minus, accusamus at magnam aperiam provident nisi quae tempore? Ad ratione autem dolorem natus nulla consectetur.
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis aliquam est aperiam earum perspiciatis neque aut voluptate fugit non ut, dolor quidem debitis aspernatur exercitationem nam libero consequatur officia corrupti!
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur animi officia impedit voluptates, quisquam quaerat eligendi tempora sunt! Error provident quisquam soluta a laborum obcaecati nam autem omnis nisi. Cumque?
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel, iste distinctio eveniet laboriosam magnam incidunt nemo blanditiis ullam praesentium dolor maiores nobis quasi rerum qui ab! Debitis et quas deleniti.
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Illum culpa reiciendis nemo beatae, totam minus, accusamus at magnam aperiam provident nisi quae tempore? Ad ratione autem dolorem natus nulla consectetur.
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis aliquam est aperiam earum perspiciatis neque aut voluptate fugit non ut, dolor quidem debitis aspernatur exercitationem nam libero consequatur officia corrupti!
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur animi officia impedit voluptates, quisquam quaerat eligendi tempora sunt! Error provident quisquam soluta a laborum obcaecati nam autem omnis nisi. Cumque?
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel, iste distinctio eveniet laboriosam magnam incidunt nemo blanditiis ullam praesentium dolor maiores nobis quasi rerum qui ab! Debitis et quas deleniti.
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Illum culpa reiciendis nemo beatae, totam minus, accusamus at magnam aperiam provident nisi quae tempore? Ad ratione autem dolorem natus nulla consectetur.
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis
+          aliquam est aperiam earum perspiciatis neque aut voluptate fugit non
+          ut, dolor quidem debitis aspernatur exercitationem nam libero
+          consequatur officia corrupti! Lorem ipsum dolor sit amet consectetur
+          adipisicing elit. Pariatur animi officia impedit voluptates, quisquam
+          quaerat eligendi tempora sunt! Error provident quisquam soluta a
+          laborum obcaecati nam autem omnis nisi. Cumque? Lorem ipsum dolor sit
+          amet consectetur adipisicing elit. Vel, iste distinctio eveniet
+          laboriosam magnam incidunt nemo blanditiis ullam praesentium dolor
+          maiores nobis quasi rerum qui ab! Debitis et quas deleniti. Lorem
+          ipsum dolor sit amet consectetur, adipisicing elit. Illum culpa
+          reiciendis nemo beatae, totam minus, accusamus at magnam aperiam
+          provident nisi quae tempore? Ad ratione autem dolorem natus nulla
+          consectetur. Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+          Corporis aliquam est aperiam earum perspiciatis neque aut voluptate
+          fugit non ut, dolor quidem debitis aspernatur exercitationem nam
+          libero consequatur officia corrupti! Lorem ipsum dolor sit amet
+          consectetur adipisicing elit. Pariatur animi officia impedit
+          voluptates, quisquam quaerat eligendi tempora sunt! Error provident
+          quisquam soluta a laborum obcaecati nam autem omnis nisi. Cumque?
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel, iste
+          distinctio eveniet laboriosam magnam incidunt nemo blanditiis ullam
+          praesentium dolor maiores nobis quasi rerum qui ab! Debitis et quas
+          deleniti. Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+          Illum culpa reiciendis nemo beatae, totam minus, accusamus at magnam
+          aperiam provident nisi quae tempore? Ad ratione autem dolorem natus
+          nulla consectetur. Lorem ipsum dolor sit amet, consectetur adipisicing
+          elit. Corporis aliquam est aperiam earum perspiciatis neque aut
+          voluptate fugit non ut, dolor quidem debitis aspernatur exercitationem
+          nam libero consequatur officia corrupti! Lorem ipsum dolor sit amet
+          consectetur adipisicing elit. Pariatur animi officia impedit
+          voluptates, quisquam quaerat eligendi tempora sunt! Error provident
+          quisquam soluta a laborum obcaecati nam autem omnis nisi. Cumque?
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel, iste
+          distinctio eveniet laboriosam magnam incidunt nemo blanditiis ullam
+          praesentium dolor maiores nobis quasi rerum qui ab! Debitis et quas
+          deleniti. Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+          Illum culpa reiciendis nemo beatae, totam minus, accusamus at magnam
+          aperiam provident nisi quae tempore? Ad ratione autem dolorem natus
+          nulla consectetur. Lorem ipsum dolor sit amet, consectetur adipisicing
+          elit. Corporis aliquam est aperiam earum perspiciatis neque aut
+          voluptate fugit non ut, dolor quidem debitis aspernatur exercitationem
+          nam libero consequatur officia corrupti! Lorem ipsum dolor sit amet
+          consectetur adipisicing elit. Pariatur animi officia impedit
+          voluptates, quisquam quaerat eligendi tempora sunt! Error provident
+          quisquam soluta a laborum obcaecati nam autem omnis nisi. Cumque?
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel, iste
+          distinctio eveniet laboriosam magnam incidunt nemo blanditiis ullam
+          praesentium dolor maiores nobis quasi rerum qui ab! Debitis et quas
+          deleniti. Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+          Illum culpa reiciendis nemo beatae, totam minus, accusamus at magnam
+          aperiam provident nisi quae tempore? Ad ratione autem dolorem natus
+          nulla consectetur. Lorem ipsum dolor sit amet, consectetur adipisicing
+          elit. Corporis aliquam est aperiam earum perspiciatis neque aut
+          voluptate fugit non ut, dolor quidem debitis aspernatur exercitationem
+          nam libero consequatur officia corrupti! Lorem ipsum dolor sit amet
+          consectetur adipisicing elit. Pariatur animi officia impedit
+          voluptates, quisquam quaerat eligendi tempora sunt! Error provident
+          quisquam soluta a laborum obcaecati nam autem omnis nisi. Cumque?
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel, iste
+          distinctio eveniet laboriosam magnam incidunt nemo blanditiis ullam
+          praesentium dolor maiores nobis quasi rerum qui ab! Debitis et quas
+          deleniti. Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+          Illum culpa reiciendis nemo beatae, totam minus, accusamus at magnam
+          aperiam provident nisi quae tempore? Ad ratione autem dolorem natus
+          nulla consectetur. Lorem ipsum dolor sit amet, consectetur adipisicing
+          elit. Corporis aliquam est aperiam earum perspiciatis neque aut
+          voluptate fugit non ut, dolor quidem debitis aspernatur exercitationem
+          nam libero consequatur officia corrupti! Lorem ipsum dolor sit amet
+          consectetur adipisicing elit. Pariatur animi officia impedit
+          voluptates, quisquam quaerat eligendi tempora sunt! Error provident
+          quisquam soluta a laborum obcaecati nam autem omnis nisi. Cumque?
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel, iste
+          distinctio eveniet laboriosam magnam incidunt nemo blanditiis ullam
+          praesentium dolor maiores nobis quasi rerum qui ab! Debitis et quas
+          deleniti. Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+          Illum culpa reiciendis nemo beatae, totam minus, accusamus at magnam
+          aperiam provident nisi quae tempore? Ad ratione autem dolorem natus
+          nulla consectetur.
         </div>
       </div>
     </el-main>
@@ -62,7 +117,7 @@
 </template>
 <script>
 export default {
-  layout: "admin",
+  layout: "Admin",
   data() {
     return {
       search: ""

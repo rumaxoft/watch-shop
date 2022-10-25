@@ -21,10 +21,10 @@ const orderSchema = mongoose.Schema(
       },
     ],
     shippingAddress: {
-      address: { type: String, required: true },
-      city: { type: String, required: true },
+      address: { type: String },
+      city: { type: String },
       postalCode: { type: String },
-      country: { type: String, required: true },
+      country: { type: String },
     },
     paymentMethod: {
       type: String,
@@ -38,10 +38,10 @@ const orderSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    status: {
-      type: String,
+    isApproved: {
+      type: Boolean,
       required: true,
-      default: 'not accepted',
+      default: false,
     },
     paymentResult: {
       id: { type: String },

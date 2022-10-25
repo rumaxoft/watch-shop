@@ -9,7 +9,7 @@
     >
       <el-table-column prop="id" width="100" label="Заказ">
         <template slot-scope="scope">
-          <NuxtLink :to="`/order/${scope.row.id}`">
+          <NuxtLink :to="`/admin/order/${scope.row.id}`">
             <small>{{ scope.row.id }}</small>
           </NuxtLink>
         </template>
@@ -102,7 +102,7 @@ export default {
     return {};
   },
   methods: {
-    ...mapActions("orders", ["getOrdersList"]),
+    ...mapActions("orders", ["getOrdersListByUserId"]),
     resetDateFilter() {
       this.$refs.filterTable.clearFilter("date");
     },
@@ -136,9 +136,14 @@ export default {
     }
   },
   computed: {
-    ...mapGetters("orders", ["fetchedOrders", "loading", "error", "message"]),
+    ...mapGetters("orders", [
+      "fetchedOrdersByUserId",
+      "loading",
+      "error",
+      "message"
+    ]),
     normalizedOrdersList() {
-      return this.fetchedOrders.map(el => {
+      return this.fetchedOrdersByUserId.map(el => {
         return {
           id: el._id,
           date: new Intl.DateTimeFormat("ru-RU").format(new Date(el.createdAt)),
@@ -152,7 +157,7 @@ export default {
   },
   async fetch() {
     try {
-      await this.getOrdersList();
+      await this.getOrdersListByUserId(this.$route.params.id);
     } catch (error) {
       this.notify();
     }

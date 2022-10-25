@@ -135,7 +135,6 @@ export default {
     }
   },
   created() {
-    console.log(this.$store.state.users.userInfo._id);
     if (this.$store.state.users.userInfo._id) {
       this.$router.push("/user/profile");
     }

@@ -10,7 +10,16 @@
       >
         <el-col :xs="24" :md="10">
           <el-card>
-            <h3>Заказ №{{ fetchedOrder._id }}</h3>
+            <div class="title-wrapper">
+              <el-button
+                @click="$router.go(-1)"
+                class="back-button"
+                type="text"
+              >
+                <i class="el-icon-we-arrow-left"></i>
+              </el-button>
+              <h3>Заказ №{{ fetchedOrderForAdmin._id }}</h3>
+            </div>
             <el-divider></el-divider>
             <p>
               <strong>Имя:&nbsp; </strong>
@@ -29,11 +38,14 @@
             <span>
               {{ status }}
             </span>
+            <el-button class="ml-8" v-if="!fetchedOrderForAdmin.status">
+              Подтвердить
+            </el-button>
             <el-divider></el-divider>
             <p class="mb-16">
               <strong>Тип доставки:&nbsp; </strong>
               <span>
-                {{ fetchedOrder.deliveryType }}
+                {{ fetchedOrderForAdmin.deliveryType }}
               </span>
             </p>
             <el-alert
@@ -43,7 +55,9 @@
               :type="isDelivered ? 'success' : 'error'"
             >
             </el-alert>
-            <div v-if="fetchedOrder.deliveryType === 'Доставка курьером'">
+            <div
+              v-if="fetchedOrderForAdmin.deliveryType === 'Доставка курьером'"
+            >
               <b>Адрес доставки : &nbsp;</b>
               <span>
                 {{ shippingAddress }}
@@ -52,13 +66,13 @@
             <el-divider></el-divider>
             <strong>Телефон для связи:&nbsp;</strong>
             <span>
-              {{ fetchedOrder.phone }}
+              {{ fetchedOrderForAdmin.phone }}
             </span>
             <el-divider></el-divider>
             <p class="mb-16">
               <strong>Оплата:&nbsp;</strong>
               <span>
-                {{ fetchedOrder.paymentMethod }}
+                {{ fetchedOrderForAdmin.paymentMethod }}
               </span>
             </p>
             <el-alert
@@ -70,12 +84,12 @@
             </el-alert>
             <el-divider></el-divider>
             <h3>Товары:</h3>
-            <!-- <div class="mt-16" v-if="fetchedOrder.cartItems.length === 0">
+            <!-- <div class="mt-16" v-if="fetchedOrderForAdmin.cartItems.length === 0">
               Корзина пуста
             </div> -->
             <ul class="app-cart__products-list">
               <li
-                v-for="item in fetchedOrder.orderItems"
+                v-for="item in fetchedOrderForAdmin.orderItems"
                 :key="item.product"
                 class="app-cart__products-item"
               >
@@ -106,23 +120,24 @@
           <el-card class="mt-32">
             <div class="app-cart__total-amount app-cart__total-amount--light ">
               <p>Сумма:</p>
-              <p>{{ fetchedOrder.itemsPrice || "0" | currency }}</p>
+              <p>{{ fetchedOrderForAdmin.itemsPrice || "0" | currency }}</p>
             </div>
             <div class="app-cart__total-amount app-cart__total-amount--light ">
               <p>Доставка:</p>
-              <p>{{ fetchedOrder.deliveryPrice || "0" | currency }}</p>
+              <p>{{ fetchedOrderForAdmin.deliveryPrice || "0" | currency }}</p>
             </div>
             <el-divider></el-divider>
             <div class="app-cart__total-amount ">
               <p>Итого:</p>
-              <p>{{ fetchedOrder.totalPrice || "0" | currency }}</p>
+              <p>{{ fetchedOrderForAdmin.totalPrice || "0" | currency }}</p>
             </div>
             <el-alert v-show="this.error" :title="this.error" type="error">
             </el-alert>
             <div
               v-loading="loadingPay"
               v-if="
-                !fetchedOrder.isPaid && fetchedOrder.paymentMethod === 'PayPal'
+                !fetchedOrderForAdmin.isPaid &&
+                  fetchedOrderForAdmin.paymentMethod === 'PayPal'
               "
             >
               <el-divider></el-divider>
@@ -139,6 +154,7 @@ import { mapActions, mapGetters, mapMutations } from "vuex";
 import Vue from "vue";
 export default {
   name: "OrderDetails",
+  layout: "Admin",
   validate({ params }) {
     const isVerified = params.id ? true : false;
     return isVerified;
@@ -151,12 +167,11 @@ export default {
     };
   },
   async fetch() {
-    console.log("fetch");
     try {
-      await this.getOrderDetails(this.$route.params.id);
+      await this.getOrderDetailsForAdmin(this.$route.params.id);
       if (
-        this.fetchedOrder.paymentMethod === "PayPal" &&
-        !this.fetchedOrder.isPaid
+        this.fetchedOrderForAdmin.paymentMethod === "PayPal" &&
+        !this.fetchedOrderForAdmin.isPaid
       ) {
         await this.addPaypalScript();
       }
@@ -169,7 +184,7 @@ export default {
     return this.$route.params.id + "-" + getCounter("orderDetails");
   },
   methods: {
-    ...mapActions("orders", ["getOrderDetails", "payOrder"]),
+    ...mapActions("orders", ["getOrderDetailsForAdmin", "payOrder"]),
     ...mapMutations("orders", ["ORDER_PAY_RESET"]),
     async addPaypalScript() {
       const { data: clientId } = await this.$axios.get(
@@ -224,7 +239,7 @@ export default {
   },
   computed: {
     ...mapGetters("orders", [
-      "fetchedOrder",
+      "fetchedOrderForAdmin",
       "loading",
       "message",
       "error",
@@ -235,27 +250,27 @@ export default {
     ...mapGetters("users", ["userInfo"]),
     shippingAddress() {
       return [
-        this.fetchedOrder.shippingAddress?.country,
-        this.fetchedOrder.shippingAddress?.city,
-        this.fetchedOrder.shippingAddress?.address
+        this.fetchedOrderForAdmin.shippingAddress?.country,
+        this.fetchedOrderForAdmin.shippingAddress?.city,
+        this.fetchedOrderForAdmin.shippingAddress?.address
       ].join(", ");
     },
     name() {
-      return this.fetchedOrder?.user?.name || "";
+      return this.fetchedOrderForAdmin?.user?.name || "";
     },
     email() {
-      return this.fetchedOrder?.user?.email || "";
+      return this.fetchedOrderForAdmin?.user?.email || "";
     },
     isPaid() {
-      return this.fetchedOrder?.isPaid;
+      return this.fetchedOrderForAdmin?.isPaid;
     },
     isDelivered() {
-      return this.fetchedOrder?.isDelivered;
+      return this.fetchedOrderForAdmin?.isDelivered;
     },
     status() {
-      return this.fetchedOrder?.status === "not approved"
-        ? "Не подтвержден"
-        : "Подтверджен";
+      return this.fetchedOrderForAdmin?.status
+        ? "Подтвержден"
+        : "Не подтверджен";
     },
     payPalComponent() {
       return this.payPalButton || "";
@@ -273,7 +288,7 @@ export default {
           purchase_units: [
             {
               amount: {
-                value: this.fetchedOrder.totalPrice
+                value: this.fetchedOrderForAdmin.totalPrice
               }
             }
           ]
@@ -285,7 +300,7 @@ export default {
         return actions.order.capture().then(async details => {
           // This function shows a otransaction success message to your buyer.
           await this.payOrder({
-            orderId: this.fetchedOrder._id,
+            orderId: this.fetchedOrderForAdmin._id,
             paymentResult: details
           });
           this.notify();
@@ -294,7 +309,7 @@ export default {
     },
     orderPaidAt() {
       return new Intl.DateTimeFormat("ru-RU").format(
-        new Date(this.fetchedOrder.paidAt)
+        new Date(this.fetchedOrderForAdmin.paidAt)
       );
     }
   }
@@ -303,6 +318,13 @@ export default {
 <style lang="stylus" scoped>
 @import '~/theme/_mixins.styl'
 @import '~/theme/_colors.styl'
+.title-wrapper
+  display flex
+  align-items center
+.back-button
+  color black
+  font-size 1rem
+  margin-right 8px
 .order-details
   margin 0
   padding 0

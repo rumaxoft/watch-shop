@@ -1,3 +1,4 @@
+import { ORDER_LIST_RESET } from "~/constants/order-constants";
 import {
   USER_INITIALIZE_STATE,
   USER_LOGIN_REQUEST,
@@ -11,16 +12,31 @@ import {
   USER_DETAILS_REQUEST,
   USER_DETAILS_SUCCESS,
   USER_DETAILS_FAIL,
+  USER_DETAILS_RESET,
+  USER_LIST_FAIL,
+  USER_LIST_REQUEST,
+  USER_LIST_SUCCESS,
+  USER_DETAILS_BY_ID_FAIL,
+  USER_DETAILS_BY_ID_REQUEST,
+  USER_DETAILS_BY_ID_RESET,
+  USER_DETAILS_BY_ID_SUCCESS,
   USER_UPDATE_PROFILE_FAIL,
   USER_UPDATE_PROFILE_REQUEST,
-  USER_UPDATE_PROFILE_RESET,
-  USER_UPDATE_PROFILE_SUCCESS
+  USER_UPDATE_PROFILE_SUCCESS,
+  USER_UPDATE_FAIL,
+  USER_UPDATE_REQUEST,
+  USER_UPDATE_SUCCESS,
+  USER_DELETE_FAIL,
+  USER_DELETE_REQUEST,
+  USER_DELETE_SUCCESS
 } from "../constants/user-constants";
 
 export const state = () => {
   return {
     userInfo: {},
     user: {},
+    userDetailsById: {},
+    users: [],
     loading: false,
     error: "",
     message: "",
@@ -81,21 +97,73 @@ export const mutations = {
     state.loading = false;
     state.error = error;
   },
-  [USER_UPDATE_PROFILE_REQUEST](state) {
+  [USER_DETAILS_RESET](state) {
+    state.users = [];
+  },
+  [USER_DETAILS_BY_ID_REQUEST](state) {
+    state.loading = "";
+    state.error = "";
+  },
+  [USER_DETAILS_BY_ID_SUCCESS](state, userDetails) {
+    state.userDetailsById = userDetails;
+    state.loading = false;
+  },
+  [USER_DETAILS_BY_ID_FAIL](state, error) {
+    state.error = error;
+    state.loading = false;
+  },
+  [USER_DETAILS_BY_ID_RESET](state) {
+    state.userDetailsById = {};
+  },
+  [USER_LIST_REQUEST](state) {
     state.loading = true;
     state.error = "";
     state.message = "";
+  },
+  [USER_LIST_SUCCESS](state, users) {
+    state.users = users;
+    state.loading = false;
+  },
+  [USER_LIST_FAIL](state, error) {
+    state.loading = false;
+    state.error = error;
+  },
+  [USER_UPDATE_PROFILE_REQUEST](state) {
+    state.loading = true;
+    state.error = "";
   },
   [USER_UPDATE_PROFILE_SUCCESS](state, user) {
     state.user = user;
     state.loading = false;
     state.message = "Изменения успешно сохранены";
   },
-  [USER_UPDATE_PROFILE_RESET](state, user) {
-    state.user = user;
-    state.loading = false;
-  },
   [USER_UPDATE_PROFILE_FAIL](state, error) {
+    state.loading = false;
+    state.error = error;
+  },
+  [USER_UPDATE_REQUEST](state) {
+    state.loading = true;
+    state.error = "";
+  },
+  [USER_UPDATE_SUCCESS](state, userDetailsById) {
+    state.userDetailsById = userDetailsById;
+    state.loading = false;
+    state.message = "Изменения успешно сохранены";
+  },
+  [USER_UPDATE_FAIL](state, error) {
+    state.loading = false;
+    state.error = error;
+  },
+  [USER_DELETE_REQUEST](state) {
+    state.loading = true;
+    state.error = "";
+    state.message = "";
+  },
+  [USER_DELETE_SUCCESS](state) {
+    state.loading = false;
+    state.message = "Пользователь удален";
+  },
+  [USER_DELETE_FAIL](state, error) {
     state.loading = false;
     state.error = error;
   },
@@ -168,7 +236,6 @@ export const actions = {
       } = state;
       const config = {
         headers: {
-          "Content-type": "application/json",
           Authorization: `Bearer ${token}`
         }
       };
@@ -182,6 +249,52 @@ export const actions = {
         ? error.response.data.message
         : error.message;
       commit(USER_DETAILS_FAIL, errorMessage);
+    }
+  },
+  async getUserDetailsById({ commit, state }, id) {
+    try {
+      commit(USER_DETAILS_BY_ID_REQUEST);
+      const {
+        userInfo: { token }
+      } = state;
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      };
+      const { data } = await this.$axios.get(
+        `http://localhost:5050/api/users/${id}`,
+        config
+      );
+      commit(USER_DETAILS_BY_ID_SUCCESS, data);
+    } catch (error) {
+      const errorMessage = error.response?.data?.message
+        ? error.response.data.message
+        : error.message;
+      commit(USER_DETAILS_BY_ID_FAIL, errorMessage);
+    }
+  },
+  async getUsers({ commit, state }) {
+    try {
+      commit(USER_LIST_REQUEST);
+      const {
+        userInfo: { token }
+      } = state;
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      };
+      const { data } = await this.$axios.get(
+        `http://localhost:5050/api/users`,
+        config
+      );
+      commit(USER_LIST_SUCCESS, data);
+    } catch (error) {
+      const errorMessage = error.response?.data?.message
+        ? error.response.data.message
+        : error.message;
+      commit(USER_LIST_FAIL, errorMessage);
     }
   },
   async updateUserProfile({ commit, state }, user) {
@@ -214,12 +327,68 @@ export const actions = {
       commit(USER_UPDATE_PROFILE_FAIL, errorMessage);
     }
   },
+  async updateUser({ commit, state }, user) {
+    try {
+      commit(USER_UPDATE_REQUEST);
+      const {
+        userInfo: { token }
+      } = state;
+      const config = {
+        headers: {
+          "Content-type": "application/json",
+          Authorization: `Bearer ${token}`
+        }
+      };
+      const { data } = await this.$axios.put(
+        `http://localhost:5050/api/users/${user._id}`,
+        user,
+        config
+      );
+      commit(USER_UPDATE_SUCCESS, data);
+      commit(USER_DETAILS_BY_ID_SUCCESS, data);
+    } catch (error) {
+      const errorMessage = error.response?.data?.message
+        ? error.response.data.message
+        : error.message;
+      commit(USER_UPDATE_FAIL, errorMessage);
+    }
+  },
+  async deleteUser({ commit, state }, userId) {
+    try {
+      commit(USER_DELETE_REQUEST);
+      const {
+        userInfo: { token }
+      } = state;
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      };
+      await new Promise(res => {
+        setTimeout(() => {
+          res();
+        }, 2000);
+      });
+      const { data } = await this.$axios.delete(
+        `http://localhost:5050/api/users/${userId}`,
+        config
+      );
+      commit(USER_DELETE_SUCCESS, data);
+    } catch (error) {
+      const errorMessage = error.response?.data?.message
+        ? error.response.data.message
+        : error.message;
+      commit(USER_DELETE_FAIL, errorMessage);
+    }
+  },
   logout({ commit, state }) {
     try {
       if (process.browser) {
         window.localStorage.removeItem("userInfo");
       }
       commit(USER_LOGOUT);
+      commit(USER_DETAILS_RESET);
+      commit(`orders/${ORDER_LIST_RESET}`, null, { root: true });
     } catch (error) {
       const errorMessage = error.response?.data?.message
         ? error.response.data.message
@@ -245,7 +414,9 @@ export const actions = {
 export const getters = {
   loading: state => state.loading,
   userInfo: state => state.userInfo,
+  userDetailsById: state => state.userDetailsById,
   user: state => state.user,
+  users: state => state.users,
   error: state => state.error,
   message: state => state.message,
   alert: state => state.alert

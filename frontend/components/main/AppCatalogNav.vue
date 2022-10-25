@@ -22,9 +22,7 @@
           <i class="el-icon-we-chevron-left"></i>
         </button>
         <h3>
-          {{
-            visibleCategory.name == "root" ? "Каталог" : visibleCategory.name
-          }}
+          {{ visibleCategoryTitle }}
         </h3>
         <button
           @click="showNav = false"
@@ -65,14 +63,9 @@
 <script>
 export default {
   name: "AppCatalogNav",
-  props: {
-    catalog: {
-      type: Object,
-      required: true
-    }
-  },
   data: () => ({
-    visibleCategory: null,
+    catalog: {},
+    visibleCategory: {},
     categoriesHistory: [],
     showNav: false
   }),
@@ -92,8 +85,25 @@ export default {
       this.visibleCategory = this.categoriesHistory.pop();
     }
   },
-  created() {
-    this.visibleCategory = this.catalog;
+  async fetch() {
+    if (!this.catalog?.name) {
+      try {
+        const { data } = await this.$axios.get(
+          `http://localhost:5050/api/categories`
+        );
+        this.catalog = data;
+        this.visibleCategory = data;
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  },
+  computed: {
+    visibleCategoryTitle() {
+      return this.visibleCategory?.name === "root"
+        ? "Каталог"
+        : this.visibleCategory.name;
+    }
   }
 };
 </script>
