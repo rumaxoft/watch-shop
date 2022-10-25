@@ -38,10 +38,10 @@ const orderSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    status: {
-      type: String,
+    isApproved: {
+      type: Boolean,
       required: true,
-      default: 'not approved',
+      default: false,
     },
     paymentResult: {
       id: { type: String },

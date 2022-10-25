@@ -100,9 +100,27 @@ const addOrderItems = asyncHandler(async (req, res) => {
 const getOrderById = asyncHandler(async (req, res) => {
   const order = await Order.findById(req.params.id).populate(
     'user',
+    'name id email'
+  )
+  if (order) {
+    if (order.user.id !== req.user._id.toString()) {
+      throw new Error('Not your order')
+    }
+    res.json(order)
+  } else {
+    res.status(404)
+    throw new Error('Order not found')
+  }
+})
+
+// @desc    Get order by ID for Admin
+// @route   GET /api/orders/admin/:id
+// @access  Admin
+const getOrderByIdForAdmin = asyncHandler(async (req, res) => {
+  const order = await Order.findById(req.params.id).populate(
+    'user',
     'name email'
   )
-
   if (order) {
     res.json(order)
   } else {
@@ -163,6 +181,14 @@ const getMyOrders = asyncHandler(async (req, res) => {
   res.json(orders)
 })
 
+// @desc    Get orders by user id
+// @route   GET /api/orders/user/:id
+// @access  Admin
+const getOrdersByUserId = asyncHandler(async (req, res) => {
+  const orders = await Order.find({ user: req.params.id })
+  res.json(orders)
+})
+
 // @desc    Get all orders
 // @route   GET /api/orders
 // @access  Private/Admin
@@ -178,4 +204,6 @@ export {
   updateOrderToDelivered,
   getMyOrders,
   getOrders,
+  getOrdersByUserId,
+  getOrderByIdForAdmin,
 }
