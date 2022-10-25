@@ -1,9 +1,11 @@
 <template>
-  <el-header height="64px" class="appheader">
+  <header height="64px" class="appheader">
     <AppNavigationAdmin />
-    <slot></slot>
-  </el-header>
+  </header>
 </template>
+<script>
+export default {};
+</script>
 <style lang="stylus" scoped>
 @import '~/theme/_mixins.styl'
 @import '~/theme/_colors.styl'

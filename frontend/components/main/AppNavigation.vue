@@ -55,6 +55,14 @@
                   Личный кабинет
                 </NuxtLink>
               </el-dropdown-item>
+              <el-dropdown-item
+                v-if="userInfo && userInfo.isAdmin"
+                icon="el-icon-we-grid"
+              >
+                <NuxtLink class="appnavigation__user-dropdown-link" to="/admin">
+                  Панель администратора
+                </NuxtLink>
+              </el-dropdown-item>
               <el-dropdown-item icon="el-icon-we-log-out">
                 <span
                   class="appnavigation__user-dropdown-link"

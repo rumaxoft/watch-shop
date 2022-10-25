@@ -1,26 +1,26 @@
 <template>
   <div class="wrapper">
-    <AppAdminHeader>
-      <el-input
-        class="search"
-        placeholder="Найти заказ"
-        v-model="search"
-      >
-        <i slot="suffix" class="el-input__icon el-icon-search"></i>
-      </el-input>
-    </AppAdminHeader>
     <el-main>
-      Clients
+      <div>
+        <el-row :gutter="32">
+          <el-col :md="8">
+            <AppAdminUserInfo />
+          </el-col>
+          <el-col :md="16">
+            <AppAdminUserOrders class="mt-24" />
+          </el-col>
+        </el-row>
+      </div>
     </el-main>
   </div>
 </template>
 <script>
 export default {
-  layout: "admin",
+  layout: "Admin",
   data() {
     return {
-      search: ''
-    }
+      search: ""
+    };
   }
 };
 </script>

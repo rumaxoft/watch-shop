@@ -13,10 +13,7 @@
       direction="ltr"
       :visible.sync="drawer"
     >
-      <el-menu
-        router
-        :default-active="$route.path"
-      >
+      <el-menu router :default-active="$route.path">
         <el-menu-item index="/admin">
           <i class="el-icon-we-trending-up"></i>
           <span>Аналитика</span>
@@ -29,9 +26,9 @@
           <i class="el-icon-we-tag"></i>
           <span>Продукты</span>
         </el-menu-item>
-        <el-menu-item index="/admin/clients">
+        <el-menu-item index="/admin/users/">
           <i class="el-icon-we-users"></i>
-          <span>Клиенты</span>
+          <span>Пользователи</span>
         </el-menu-item>
         <el-divider></el-divider>
         <el-menu-item index="/admin/settings">
@@ -53,7 +50,7 @@ export default {
   mixins: [breakpointsMixin],
   data: () => ({
     drawer: false,
-    search: ''
+    search: ""
   })
 };
 </script>
