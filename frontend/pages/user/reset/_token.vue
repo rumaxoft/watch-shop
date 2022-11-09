@@ -49,6 +49,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
   layout: "Empty",
   name: "ResetPassword",
@@ -97,6 +98,9 @@ export default {
       }
     };
   },
+  computed: {
+    ...mapGetters('apiUrl', ["getApiUrl"]),
+  },
   methods: {
     submitHandler() {
       this.$refs.resetForm.validate(async valid => {
@@ -112,7 +116,7 @@ export default {
               }
             };
             const { data } = await this.$axios.put(
-              `http://localhost:5050/api/reset/${token}`,
+              `${this.getApiUrl}/reset/${token}`,
               { password: this.ruleForm.password },
               config
             );

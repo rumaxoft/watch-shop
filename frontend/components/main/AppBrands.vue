@@ -19,6 +19,7 @@
   </div>
 </template>
 <script>
+import { mapGetters } from 'vuex'
 export default {
   name: "Brands",
   data() {
@@ -26,9 +27,13 @@ export default {
       brands: []
     };
   },
+  computed: {
+  ...mapGetters('apiUrl',["getApiUrl"]),
+  },
   async fetch() {
+    console.log('in App Brands', this.getApiUrl)
     const { data: fetchedBanners } = await this.$axios.get(
-      "http://localhost:5050/api/brands"
+      `${this.getApiUrl}/brands`
     );
     this.brands = fetchedBanners;
   }

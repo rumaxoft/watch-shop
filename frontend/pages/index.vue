@@ -11,6 +11,7 @@
 </template>
 
 <script>
+import {mapGetters, mapActions} from 'vuex'
 export default {
   name: "HomePage",
   data() {
@@ -19,12 +20,16 @@ export default {
       products: []
     };
   },
+  computed: {
+    ...mapGetters('apiUrl', ["getApiUrl"])
+  },
   async fetch() {
+
     const { data: fetchedBanners } = await this.$axios.get(
-      "http://localhost:5050/api/banners"
+      `${this.getApiUrl}/banners`
     );
     const { data: fetchedProducts } = await this.$axios.get(
-      "http://localhost:5050/api/products/top"
+      `${this.getApiUrl}/products/top`
     );
     this.promoBanners = fetchedBanners;
     this.products = fetchedProducts;

@@ -11,7 +11,7 @@ import { fileURLToPath } from 'url'
 const __dirname = dirname(fileURLToPath(import.meta.url))
 
 // @desc    Request reset password
-// @route   POST /api/reset
+// @route   POST /API_PREFIX/reset
 // @access  Public
 const passwordResetRequest = asyncHandler(async (req, res) => {
   const schema = new Joi.object({ email: Joi.string().email().required() })
@@ -57,7 +57,7 @@ const passwordResetRequest = asyncHandler(async (req, res) => {
 })
 
 // @desc    Update password
-// @route   PUT /api/reset/:token
+// @route   PUT /API_PREFIX/reset/:token
 // @access  Public (token route, 1 hour access limit)
 const passwordUpdate = asyncHandler(async (req, res) => {
   const schema = new Joi.object({ password: Joi.string().required() })

@@ -76,6 +76,7 @@
 </template>
 
 <script>
+import { mapGetters} from 'vuex'
 export default {
   name: "catalog",
   data: () => ({
@@ -102,7 +103,7 @@ export default {
   }),
   async fetch() {
     const { data: catalog } = await this.$axios.get(
-      "http://localhost:5050/api/categories"
+      `${this.getApiUrl}/categories`
     );
     const category = this.findCategoryBySlugPath(
       this.slugPath,
@@ -123,8 +124,8 @@ export default {
     query.pageNumber = this.currentPage;
     query.pageSize = this.pageCount;
     const url = category
-      ? `http://localhost:5050/api/products/category/${category._id}`
-      : "http://localhost:5050/api/products";
+      ? `${this.getApiUrl}/products/category/${category._id}`
+      : `${this.getApiUrl}/products`;
     const request = new URL(url);
     for (let [key, value] of Object.entries(query)) {
       request.searchParams.set(key, value);
@@ -134,7 +135,7 @@ export default {
     this.totalProducts = fetchedProducts.totalProducts;
     if (this.brandOptions.length === 0) {
       const { data: brands } = await this.$axios.get(
-        "http://localhost:5050/api/brands"
+        `${this.getApiUrl}/brands`
       );
 
       const brandsMap = brands.reduce((acc, el) => {
@@ -181,6 +182,7 @@ export default {
     }
   },
   computed: {
+    ...mapGetters('apiUrl', ['getApiUrl']),
     slugPath() {
       if (this.$route.path) {
         return this.$route.path

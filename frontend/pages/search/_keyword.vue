@@ -24,6 +24,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
   data() {
     return {
@@ -45,7 +46,7 @@ export default {
     }
     query.pageNumber = this.currentPage;
     query.pageSize = this.pageCount;
-    const url = "http://localhost:5050/api/products";
+    const url = `${this.getApiUrl}/products`;
     const request = new URL(url);
     for (let [key, value] of Object.entries(query)) {
       request.searchParams.set(key, value);
@@ -53,6 +54,9 @@ export default {
     const { data: fetchedProducts } = await this.$axios.get(request.toString());
     this.products = fetchedProducts.products;
     this.totalProducts = fetchedProducts.totalProducts;
+  },
+  computed: {
+    ...mapGetters('apiUrl', ["getApiUrl"])
   }
 };
 </script>

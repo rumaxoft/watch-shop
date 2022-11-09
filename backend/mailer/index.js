@@ -51,12 +51,12 @@ import nodemailer from 'nodemailer'
 //
 const createTransporter = () => {
   const transporter = nodemailer.createTransport({
-    host: 'smtp.timeweb.ru',
-    port: 2525,
+    host: process.env.MAIL_HOST,
+    port: process.env.MAIL_PORT,
     secureConnection: false,
     auth: {
-      user: process.env.MAIL_TIMEWEB,
-      pass: process.env.MAIL_TIMEWEB_PASSWORD,
+      user: process.env.MAIL_USER,
+      pass: process.env.MAIL_PASSWORD,
     },
     tls: {
       ciphers: 'SSLv3',
@@ -70,7 +70,7 @@ export const sendEmailTimeweb = async (emailOptions) => {
   try {
     const emailTransporter = createTransporter()
     return await emailTransporter.sendMail({
-      from: process.env.MAIL_TIMEWEB,
+      from: process.env.MAIL_USER,
       ...emailOptions,
     })
   } catch (error) {

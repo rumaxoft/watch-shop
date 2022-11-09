@@ -90,16 +90,16 @@ export default {
       yandexMapShown: false,
       contacts: {
         phoneNumber: {
-          human: "+7 (900) 246-80-68",
-          code: "+79002468068"
+          human: "+7 (000) 000-00-00",
+          code: "+70000000000"
         },
-        address: "350038, г.Краснодар, ул.Промышленная, д.49/2",
-        email: "info@bldzr.ru",
-        whatsapp: "https://wa.me/+79002468068",
-        telegram: "tg://resolve?domain=helixkrd",
+        address: "000000, г.Город, ул.Улица, д.00",
+        email: "test@test.ru",
+        whatsapp: "https://wa.me/+0000000000",
+        telegram: "tg://resolve?domain=00000000",
         instagram:
-          "https://www.instagram.com/p/CFRhNqoBW2J/?igshid=occ1qs3gjt6p",
-        vkontakte: "https://vk.com/remonttut23"
+          "https://www.instagram.com/",
+        vkontakte: "https://vk.com/"
       }
     };
   },

@@ -3,20 +3,20 @@ const products = [
     name: 'Ремешок кожаный',
     images: [
       {
-        big: 'http://localhost:5050/uploads/11.jpg',
-        thumb: 'http://localhost:5050/uploads/11.jpg',
+        big: `${process.env.API_PREFIX}/uploads/11.jpg`,
+        thumb: `${process.env.API_PREFIX}/uploads/11.jpg`,
       },
       {
-        big: 'http://localhost:5050/uploads/12.jpg',
-        thumb: 'http://localhost:5050/uploads/12.jpg',
+        big: `${process.env.API_PREFIX}/uploads/12.jpg`,
+        thumb: `${process.env.API_PREFIX}/uploads/12.jpg`,
       },
       {
-        big: 'http://localhost:5050/uploads/13.jpg',
-        thumb: 'http://localhost:5050/uploads/13.jpg',
+        big: `${process.env.API_PREFIX}/uploads/13.jpg`,
+        thumb: `${process.env.API_PREFIX}/uploads/13.jpg`,
       },
       {
-        big: 'http://localhost:5050/uploads/14.jpg',
-        thumb: 'http://localhost:5050/uploads/14.jpg',
+        big: `${process.env.API_PREFIX}/uploads/14.jpg`,
+        thumb: `${process.env.API_PREFIX}/uploads/14.jpg`,
       },
     ],
     description:
@@ -36,8 +36,8 @@ const products = [
     name: 'Ремешок полимерный',
     images: [
       {
-        big: 'http://localhost:5050/uploads/21.jpg',
-        thumb: 'http://localhost:5050/uploads/21.jpg',
+        big: `${process.env.API_PREFIX}/uploads/21.jpg`,
+        thumb: `${process.env.API_PREFIX}/uploads/21.jpg`,
       },
     ],
     description:
@@ -54,8 +54,8 @@ const products = [
     name: 'Зажимы',
     images: [
       {
-        big: 'http://localhost:5050/uploads/31.jpg',
-        thumb: 'http://localhost:5050/uploads/31.jpg',
+        big: `${process.env.API_PREFIX}/uploads/31.jpg`,
+        thumb: `${process.env.API_PREFIX}/uploads/31.jpg`,
       },
     ],
     description:
@@ -72,8 +72,8 @@ const products = [
     name: 'Шпильки для ремешков',
     images: [
       {
-        big: 'http://localhost:5050/uploads/41.jpg',
-        thumb: 'http://localhost:5050/uploads/41.jpg',
+        big: `${process.env.API_PREFIX}/uploads/41.jpg`,
+        thumb: `${process.env.API_PREFIX}/uploads/41.jpg`,
       },
     ],
     description:
@@ -90,8 +90,8 @@ const products = [
     name: 'Батарейки',
     images: [
       {
-        big: 'http://localhost:5050/uploads/51.webp',
-        thumb: 'http://localhost:5050/uploads/51.webp',
+        big: `${process.env.API_PREFIX}/uploads/51.webp`,
+        thumb: `${process.env.API_PREFIX}/uploads/51.webp`,
       },
     ],
     description:
@@ -108,8 +108,8 @@ const products = [
     name: 'Батарейки',
     images: [
       {
-        big: 'http://localhost:5050/uploads/61.webp',
-        thumb: 'http://localhost:5050/uploads/61.webp',
+        big: `${process.env.API_PREFIX}/uploads/61.webp`,
+        thumb: `${process.env.API_PREFIX}/uploads/61.webp`,
       },
     ],
     description:
@@ -129,8 +129,8 @@ const products = [
     name: 'Батарейки бытовые',
     images: [
       {
-        big: 'http://localhost:5050/uploads/71.jpg',
-        thumb: 'http://localhost:5050/uploads/71.jpg',
+        big: `${process.env.API_PREFIX}/uploads/71.jpg`,
+        thumb: `${process.env.API_PREFIX}/uploads/71.jpg`,
       },
     ],
     description:

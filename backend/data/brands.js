@@ -2,17 +2,17 @@ const brands = [
   {
     name: 'Seiko',
     description: 'description',
-    bannerUrl: 'http://localhost:5050/uploads/brand-banner-seiko.jpg',
+    bannerUrl: `${process.env.API_PREFIX}/uploads/brand-banner-seiko.jpg`,
   },
   {
     name: 'Hublot',
     description: 'description',
-    bannerUrl: 'http://localhost:5050/uploads/brand-banner-hublot.jpg',
+    bannerUrl: `${process.env.API_PREFIX}/uploads/brand-banner-hublot.jpg`,
   },
   {
     name: 'Rolex',
     description: 'description',
-    bannerUrl: 'http://localhost:5050/uploads/brand-banner-rolex.jpg',
+    bannerUrl: `${process.env.API_PREFIX}/uploads/brand-banner-rolex.jpg`,
   },
 ]
 

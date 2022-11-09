@@ -183,6 +183,8 @@ export default function (name, confirmURL) {
 													</tr>
 												</tbody>
 											</table>
+											<p>Если кнопка не работает вставьте следующую строку в браузер:</p>
+											${confirmURL}
 											<p
 												style="font-family: sans-serif; font-size: 20px; font-weight: normal; margin: 0; margin-top: 32px; Margin-bottom: 15px;">
 												Другой пользователь мог зарегистрировать неправильный адрес электронной почты по ошибке. Если Вы

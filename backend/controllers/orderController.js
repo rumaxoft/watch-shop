@@ -9,7 +9,7 @@ import { fileURLToPath } from 'url'
 const __dirname = dirname(fileURLToPath(import.meta.url))
 
 // @desc    Create new order
-// @route   POST /api/orders
+// @route   POST /API_PREFIX/orders
 // @access  Private
 const addOrderItems = asyncHandler(async (req, res) => {
   const {
@@ -95,7 +95,7 @@ const addOrderItems = asyncHandler(async (req, res) => {
 })
 
 // @desc    Get order by ID
-// @route   GET /api/orders/:id
+// @route   GET /API_PREFIX/orders/:id
 // @access  Private
 const getOrderById = asyncHandler(async (req, res) => {
   const order = await Order.findById(req.params.id).populate(
@@ -114,7 +114,7 @@ const getOrderById = asyncHandler(async (req, res) => {
 })
 
 // @desc    Get order by ID for Admin
-// @route   GET /api/orders/admin/:id
+// @route   GET /API_PREFIX/orders/admin/:id
 // @access  Admin
 const getOrderByIdForAdmin = asyncHandler(async (req, res) => {
   const order = await Order.findById(req.params.id).populate(
@@ -130,7 +130,7 @@ const getOrderByIdForAdmin = asyncHandler(async (req, res) => {
 })
 
 // @desc    Update order to paid
-// @route   GET /api/orders/:id/pay
+// @route   GET /API_PREFIX/orders/:id/pay
 // @access  Private
 const updateOrderToPaid = asyncHandler(async (req, res) => {
   const order = await Order.findById(req.params.id)
@@ -155,7 +155,7 @@ const updateOrderToPaid = asyncHandler(async (req, res) => {
 })
 
 // @desc    Update order to delivered
-// @route   GET /api/orders/:id/deliver
+// @route   GET /API_PREFIX/orders/:id/deliver
 // @access  Private/Admin
 const updateOrderToDelivered = asyncHandler(async (req, res) => {
   const order = await Order.findById(req.params.id)
@@ -174,7 +174,7 @@ const updateOrderToDelivered = asyncHandler(async (req, res) => {
 })
 
 // @desc    Get logged in user orders
-// @route   GET /api/orders/myorders
+// @route   GET /API_PREFIX/orders/myorders
 // @access  Private
 const getMyOrders = asyncHandler(async (req, res) => {
   const orders = await Order.find({ user: req.user._id })
@@ -182,7 +182,7 @@ const getMyOrders = asyncHandler(async (req, res) => {
 })
 
 // @desc    Get orders by user id
-// @route   GET /api/orders/user/:id
+// @route   GET /API_PREFIX/orders/user/:id
 // @access  Admin
 const getOrdersByUserId = asyncHandler(async (req, res) => {
   const orders = await Order.find({ user: req.params.id })
@@ -190,7 +190,7 @@ const getOrdersByUserId = asyncHandler(async (req, res) => {
 })
 
 // @desc    Get all orders
-// @route   GET /api/orders
+// @route   GET /API_PREFIX/orders
 // @access  Private/Admin
 const getOrders = asyncHandler(async (req, res) => {
   const orders = await Order.find({}).populate('user', 'id name')

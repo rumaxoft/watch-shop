@@ -2,11 +2,6 @@ import mongoose from 'mongoose'
 import dotenv from 'dotenv'
 import crypto from 'crypto'
 import colors from 'colors'
-import users from './data/users.js'
-import products from './data/products.js'
-import categories from './data/categories.js'
-import brands from './data/brands.js'
-import banners from './data/banners.js'
 import Category from './models/categoryModel.js'
 import User from './models/userModel.js'
 import Product from './models/productModel.js'
@@ -15,7 +10,14 @@ import Brand from './models/brandModel.js'
 import Banner from './models/bannerModel.js'
 import connectDB from './config/db.js'
 
-dotenv.config()
+
+import banners from './data/banners.js'
+import users from './data/users.js'
+import products from './data/products.js'
+import categories from './data/categories.js'
+import brands from './data/brands.js'
+
+dotenv.config({path: '.dev.env'})
 
 connectDB()
 

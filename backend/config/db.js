@@ -1,8 +1,21 @@
 import mongoose from 'mongoose'
+import dotenv from 'dotenv'
+
+dotenv.config({path: '.dev.env'})
+
+const {
+  DB_USER,
+  DB_PASSWORD,
+  DB_HOST,
+  DB_PORT,
+} = process.env;
+
+
+const mongoURI = `mongodb://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}`
 
 const connectDB = async () => {
   try {
-    const conn = await mongoose.connect(process.env.MONGO_URI, {
+    const conn = await mongoose.connect(mongoURI, {
       useUnifiedTopology: true,
       useNewUrlParser: true,
       useCreateIndex: true,

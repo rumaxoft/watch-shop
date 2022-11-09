@@ -56,7 +56,7 @@ export default {
 
   buildModules: [],
 
-  modules: ["@nuxtjs/axios"],
+  modules: ["@nuxtjs/axios", "@nuxtjs/dotenv"],
 
   router: {
     extendRoutes(routes, resolve) {
@@ -75,8 +75,8 @@ export default {
   },
 
   server: {
-    port: 8000, // default: 3000
-    host: "0.0.0.0", // default: localhost,
+    port: process.env.NUXT_PORT, // default: 3000
+    host: process.env.NUXT_HOST, // default: localhost,
     timing: false
   }
 };

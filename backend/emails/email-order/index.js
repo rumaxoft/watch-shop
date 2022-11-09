@@ -222,12 +222,9 @@ export default function ({
 											style="font-family: sans-serif; font-size:20px; font-weight: normal; border-top:#74ce9e 1px solid; margin: 0; padding-top: 8px; margin-top: 32px; Margin-bottom: 15px;">
 											Это письмо сформировано автоматически. Пожалуйста, не отвечайте на этот адрес электронной почты.
 										</p>
-										</p>
-										<p </table>
+									  </table>
 							</td>
 						</tr>
-						style="font-family: sans-serif; font-size:20px; font-weight: normal; margin: 0; margin-top: 32px;
-						Margin-bottom: 15px;">
 						<!-- END MAIN CONTENT AREA -->
 					</table>
 					<p <!-- START FOOTER -->

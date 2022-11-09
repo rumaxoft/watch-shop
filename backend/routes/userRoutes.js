@@ -19,7 +19,7 @@ router
   .route('/profile')
   .get(protect, getUserProfile)
   .put(protect, updateUserProfile)
-router.put('/verify', verifyUser)
+router.get('/verify/:token', verifyUser)
 router
   .route('/:id')
   .delete(protect, admin, deleteUser)

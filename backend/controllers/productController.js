@@ -3,7 +3,7 @@ import Product from '../models/productModel.js'
 import Category from '../models/categoryModel.js'
 
 // @desc    Fetch all products
-// @route   GET /api/products
+// @route   GET /API_PREFIX/products
 // @access  Public
 const getProducts = asyncHandler(async (req, res) => {
   let pageSize = 10
@@ -48,7 +48,7 @@ const getProducts = asyncHandler(async (req, res) => {
 })
 
 // @desc    Fetch single product
-// @route   GET /api/products/:id
+// @route   GET /API_PREFIX/products/:id
 // @access  Public
 const getProductById = asyncHandler(async (req, res) => {
   const product = await Product.findById(req.params.id)
@@ -62,7 +62,7 @@ const getProductById = asyncHandler(async (req, res) => {
 })
 
 // @desc    Fetch single products by categoryId
-// @route   GET /api/products/category/:id
+// @route   GET /API_PREFIX/products/category/:id
 // @access  Public
 const getProductByCategoryId = asyncHandler(async (req, res) => {
   let categoryId = (await Category.findById(req.params.id))._id
@@ -112,7 +112,7 @@ const getProductByCategoryId = asyncHandler(async (req, res) => {
   })
 })
 // @desc    Delete a product
-// @route   DELETE /api/products/:id
+// @route   DELETE /API_PREFIX/products/:id
 // @access  Private/Admin
 const deleteProduct = asyncHandler(async (req, res) => {
   const product = await Product.findById(req.params.id)
@@ -127,7 +127,7 @@ const deleteProduct = asyncHandler(async (req, res) => {
 })
 
 // @desc    Create a product
-// @route   POST /api/products
+// @route   POST /API_PREFIX/products
 // @access  Private/Admin
 const createProduct = asyncHandler(async (req, res) => {
   const product = new Product({
@@ -147,7 +147,7 @@ const createProduct = asyncHandler(async (req, res) => {
 })
 
 // @desc    Update a product
-// @route   PUT /api/products/:id
+// @route   PUT /API_PREFIX/products/:id
 // @access  Private/Admin
 const updateProduct = asyncHandler(async (req, res) => {
   const { name, price, description, image, brand, category, countInStock } =
@@ -173,7 +173,7 @@ const updateProduct = asyncHandler(async (req, res) => {
 })
 
 // @desc    Create new review
-// @route   POST /api/products/:id/reviews
+// @route   POST /API_PREFIX/products/:id/reviews
 // @access  Private
 const createProductReview = asyncHandler(async (req, res) => {
   const { rating, comment } = req.body
@@ -214,7 +214,7 @@ const createProductReview = asyncHandler(async (req, res) => {
 })
 
 // @desc    Get top rated products
-// @route   GET /api/products/top
+// @route   GET /API_PREFIX/products/top
 // @access  Public
 const getTopProducts = asyncHandler(async (req, res) => {
   const products = await Product.find({}).sort({ rating: -1 }).limit(6)

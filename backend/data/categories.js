@@ -1,7 +1,7 @@
 const categories = [
   {
     name: 'Ремешки и браслеты',
-    image: 'http://localhost:5050/uploads/straps.svg',
+    image: `${process.env.API_PREFIX}/uploads/straps.svg`,
     description: 'watches',
     slug: 'remeshki-i-braslety',
     pareinId: '',
@@ -38,7 +38,7 @@ const categories = [
   },
   {
     name: 'Батарейки',
-    image: 'http://localhost:5050/uploads/battaries.svg',
+    image: `${process.env.API_PREFIX}/uploads/battaries.svg`,
     slug: 'batareiki',
     description: 'watches',
     pareinId: '',
@@ -84,7 +84,7 @@ const categories = [
   },
   {
     name: 'Зарядные устройства',
-    image: 'http://localhost:5050/uploads/charger.svg',
+    image: `${process.env.API_PREFIX}/uploads/charger.svg`,
     slug: 'zaryadnye-ustroistva',
     description: 'watches',
     pareinId: '',

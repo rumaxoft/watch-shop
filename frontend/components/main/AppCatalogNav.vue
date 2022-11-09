@@ -61,6 +61,7 @@
 </template>
 
 <script>
+import { mapGetters} from 'vuex'
 export default {
   name: "AppCatalogNav",
   data: () => ({
@@ -89,7 +90,7 @@ export default {
     if (!this.catalog?.name) {
       try {
         const { data } = await this.$axios.get(
-          `http://localhost:5050/api/categories`
+          `${this.getApiUrl}/categories`
         );
         this.catalog = data;
         this.visibleCategory = data;
@@ -99,6 +100,7 @@ export default {
     }
   },
   computed: {
+    ...mapGetters('apiUrl', ['getApiUrl']),
     visibleCategoryTitle() {
       return this.visibleCategory?.name === "root"
         ? "Каталог"

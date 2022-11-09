@@ -88,6 +88,7 @@
 </template>
 
 <script>
+import {mapGetters} from 'vuex'
 export default {
   name: "EmailVerification",
   layout: "Empty",
@@ -112,7 +113,7 @@ export default {
         }
       };
       const { data } = await this.$axios.put(
-        "http://localhost:5050/api/users/verify",
+        `${this.getApiUrl}/users/verify`,
         { token },
         config
       );
@@ -156,7 +157,9 @@ export default {
       }
     }
   },
-  computed: {}
+  computed: {
+    ...mapGetters('apiUrl', ["getApiUrl"])
+  }
 };
 </script>
 

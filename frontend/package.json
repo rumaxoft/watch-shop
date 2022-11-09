@@ -3,14 +3,15 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "nuxt",
-    "build": "nuxt build",
+    "dev": "nuxt --dotenv ./.dev.env",
+    "build": "nuxt build --dotenv ./.dev.env",
     "start": "nuxt start",
     "generate": "nuxt generate",
     "dev:host": "nuxt --hostname '0' --port 8000"
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.12.2",
+    "@nuxtjs/dotenv": "^1.4.1",
     "core-js": "^3.6.5",
     "element-ui": "^2.13.2",
     "inputmask": "^5.0.5",

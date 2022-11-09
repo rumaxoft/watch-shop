@@ -31,7 +31,7 @@
           type="text"
         >
           <i class="el-icon-we-phone"></i>
-          <span>+7 900 246 80 68</span>
+          <span>+7 000 000 00 00</span>
         </a>
         <a href="#" class="appnavigation__contact-button" type="text">
           <i class="el-icon-we-telegram"></i>
@@ -357,6 +357,7 @@ export default {
     font-weight 500
     text-decoration none
     font-size 14px
+    line-height 22px
     +sm()
       color $primary-text
   &__el-drawer

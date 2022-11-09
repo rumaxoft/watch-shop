@@ -74,7 +74,6 @@ export const mutations = {
   [USER_REGISTER_SUCCESS](state, userInfo) {
     const message = `Добро пожаловать, ${userInfo.name}!`;
     const alert = `${userInfo.name}, на ваш email ${userInfo.email}, было выслано письмо для активации аккаунта`;
-    console.log(alert);
     state.userInfo = userInfo;
     state.loading = false;
     state.message = message;
@@ -177,7 +176,7 @@ export const mutations = {
 };
 
 export const actions = {
-  async login({ commit, state }, payload) {
+  async login({ commit, state, rootState, rootGetters }, payload) {
     try {
       commit(USER_LOGIN_REQUEST);
       const { email, password } = payload;
@@ -187,7 +186,7 @@ export const actions = {
         }
       };
       const { data } = await this.$axios.post(
-        "http://localhost:5050/api/users/login",
+        `${rootGetters["apiUrl/getApiUrl"]}users/login`,
         { email, password },
         config
       );
@@ -202,7 +201,7 @@ export const actions = {
       commit(USER_LOGIN_FAIL, errorMessage);
     }
   },
-  async register({ commit, state }, payload) {
+  async register({ commit, state, rootState, rootGetters }, payload) {
     try {
       commit(USER_REGISTER_REQUEST);
       const { email, password, name } = payload;
@@ -212,7 +211,7 @@ export const actions = {
         }
       };
       const { data } = await this.$axios.post(
-        "http://localhost:5050/api/users",
+        `${rootGetters["apiUrl/getApiUrl"]}users`,
         { email, password, name },
         config
       );
@@ -228,7 +227,7 @@ export const actions = {
       commit(USER_REGISTER_FAIL, errorMessage);
     }
   },
-  async getUserDetails({ commit, state }, id) {
+  async getUserDetails({ commit, state, rootState, rootGetters }, id) {
     try {
       commit(USER_DETAILS_REQUEST);
       const {
@@ -240,7 +239,7 @@ export const actions = {
         }
       };
       const { data } = await this.$axios.get(
-        `http://localhost:5050/api/users/${id}`,
+        `${rootGetters["apiUrl/getApiUrl"]}users/${id}`,
         config
       );
       commit(USER_DETAILS_SUCCESS, data);
@@ -251,7 +250,7 @@ export const actions = {
       commit(USER_DETAILS_FAIL, errorMessage);
     }
   },
-  async getUserDetailsById({ commit, state }, id) {
+  async getUserDetailsById({ commit, state, rootState, rootGetters }, id) {
     try {
       commit(USER_DETAILS_BY_ID_REQUEST);
       const {
@@ -263,7 +262,7 @@ export const actions = {
         }
       };
       const { data } = await this.$axios.get(
-        `http://localhost:5050/api/users/${id}`,
+        `${rootGetters["apiUrl/getApiUrl"]}users/${id}`,
         config
       );
       commit(USER_DETAILS_BY_ID_SUCCESS, data);
@@ -274,7 +273,7 @@ export const actions = {
       commit(USER_DETAILS_BY_ID_FAIL, errorMessage);
     }
   },
-  async getUsers({ commit, state }) {
+  async getUsers({ commit, state, rootState, rootGetters }) {
     try {
       commit(USER_LIST_REQUEST);
       const {
@@ -286,7 +285,7 @@ export const actions = {
         }
       };
       const { data } = await this.$axios.get(
-        `http://localhost:5050/api/users`,
+        `${rootGetters["apiUrl/getApiUrl"]}users`,
         config
       );
       commit(USER_LIST_SUCCESS, data);
@@ -297,7 +296,7 @@ export const actions = {
       commit(USER_LIST_FAIL, errorMessage);
     }
   },
-  async updateUserProfile({ commit, state }, user) {
+  async updateUserProfile({ commit, state, rootState, rootGetters }, user) {
     try {
       commit(USER_UPDATE_PROFILE_REQUEST);
       const {
@@ -310,7 +309,7 @@ export const actions = {
         }
       };
       const { data } = await this.$axios.put(
-        `http://localhost:5050/api/users/profile`,
+        `${rootGetters["apiUrl/getApiUrl"]}users/profile`,
         user,
         config
       );
@@ -327,7 +326,7 @@ export const actions = {
       commit(USER_UPDATE_PROFILE_FAIL, errorMessage);
     }
   },
-  async updateUser({ commit, state }, user) {
+  async updateUser({ commit, state, rootState, rootGetters }, user) {
     try {
       commit(USER_UPDATE_REQUEST);
       const {
@@ -340,7 +339,7 @@ export const actions = {
         }
       };
       const { data } = await this.$axios.put(
-        `http://localhost:5050/api/users/${user._id}`,
+        `${rootGetters["apiUrl/getApiUrl"]}users/${user._id}`,
         user,
         config
       );
@@ -353,7 +352,7 @@ export const actions = {
       commit(USER_UPDATE_FAIL, errorMessage);
     }
   },
-  async deleteUser({ commit, state }, userId) {
+  async deleteUser({ commit, state, rootState, rootGetters }, userId) {
     try {
       commit(USER_DELETE_REQUEST);
       const {
@@ -370,7 +369,7 @@ export const actions = {
         }, 2000);
       });
       const { data } = await this.$axios.delete(
-        `http://localhost:5050/api/users/${userId}`,
+        `${rootGetters["apiUrl/getApiUrl"]}users/${userId}`,
         config
       );
       commit(USER_DELETE_SUCCESS, data);

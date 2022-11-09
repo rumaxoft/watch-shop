@@ -22,11 +22,11 @@ export const mutations = {
 };
 
 export const actions = {
-  async fetchProduct({ commit }, productId) {
+  async fetchProduct({ commit, rootGetters }, productId) {
     commit(FETCH_PRODUCT_REQUEST);
     try {
       const { data } = await this.$axios.get(
-        `http://localhost:5050/api/products/${productId}`
+        `${rootGetters["apiUrl/getApiUrl"]}/products/${productId}`
       );
       commit(FETCH_PRODUCT_SUCCESS, data);
     } catch (error) {

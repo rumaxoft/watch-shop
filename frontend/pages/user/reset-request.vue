@@ -51,7 +51,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from "vuex";
+import { mapGetters } from "vuex";
 export default {
   layout: "Empty",
   data() {
@@ -75,6 +75,9 @@ export default {
       }
     };
   },
+  computed: {
+    ...mapGetters('apiUrl', ["getApiUrl"]),
+  },
   methods: {
     submitHandler() {
       this.$refs.resetRequestForm.validate(async valid => {
@@ -90,7 +93,7 @@ export default {
               }
             };
             const { data } = await this.$axios.post(
-              "http://localhost:5050/api/reset",
+              `${this.getApiUrl}/reset`,
               { email: this.ruleForm.email },
               config
             );

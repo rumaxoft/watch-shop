@@ -139,7 +139,7 @@ export const mutations = {
 };
 
 export const actions = {
-  async createOrder({ commit, state, rootState }, order) {
+  async createOrder({ commit, state, rootState, rootGetters }, order) {
     try {
       commit(ORDER_CREATE_REQUEST);
       const {
@@ -152,7 +152,7 @@ export const actions = {
         }
       };
       const { data } = await this.$axios.post(
-        `http://localhost:5050/api/orders`,
+        `${rootGetters["apiUrl/getApiUrl"]}orders`,
         order,
         config
       );
@@ -164,7 +164,7 @@ export const actions = {
       commit(ORDER_CREATE_FAIL, errorMessage);
     }
   },
-  async getOrderDetails({ commit, state, rootState }, id) {
+  async getOrderDetails({ commit, state, rootState, rootGetters }, id) {
     try {
       commit(ORDER_DETAILS_REQUEST);
       const {
@@ -177,7 +177,7 @@ export const actions = {
         }
       };
       const { data } = await this.$axios.get(
-        `http://localhost:5050/api/orders/${id}`,
+        `${rootGetters["apiUrl/getApiUrl"]}orders/${id}`,
         config
       );
       commit(ORDER_DETAILS_SUCCESS, data);
@@ -188,7 +188,7 @@ export const actions = {
       commit(ORDER_DETAILS_FAIL, errorMessage);
     }
   },
-  async getOrderDetailsForAdmin({ commit, state, rootState }, id) {
+  async getOrderDetailsForAdmin({ commit, state, rootState, rootGetters }, id) {
     try {
       commit(ORDER_DETAILS_FOR_ADMIN_REQUEST);
       const {
@@ -201,7 +201,7 @@ export const actions = {
         }
       };
       const { data } = await this.$axios.get(
-        `http://localhost:5050/api/orders/admin/${id}`,
+        `${rootGetters["apiUrl/getApiUrl"]}orders/admin/${id}`,
         config
       );
       commit(ORDER_DETAILS_FOR_ADMIN_SUCCESS, data);
@@ -212,7 +212,10 @@ export const actions = {
       commit(ORDER_DETAILS_FOR_ADMIN_FAIL, errorMessage);
     }
   },
-  async payOrder({ commit, state, rootState }, { orderId, paymentResult }) {
+  async payOrder(
+    { commit, state, rootState, rootGetters },
+    { orderId, paymentResult }
+  ) {
     try {
       commit(ORDER_PAY_REQUEST);
       const {
@@ -225,7 +228,7 @@ export const actions = {
         }
       };
       const { data } = await this.$axios.put(
-        `http://localhost:5050/api/orders/${orderId}/pay`,
+        `${rootGetters["apiUrl/getApiUrl"]}orders/${orderId}/pay`,
         paymentResult,
         config
       );
@@ -240,7 +243,7 @@ export const actions = {
       commit(ORDER_PAY_FAIL, errorMessage);
     }
   },
-  async getOrdersList({ commit, state, rootState }) {
+  async getOrdersList({ commit, state, rootState, rootGetters }) {
     try {
       commit(ORDER_LIST_REQUEST);
       const {
@@ -252,7 +255,7 @@ export const actions = {
         }
       };
       const { data } = await this.$axios.get(
-        `http://localhost:5050/api/orders/myorders`,
+        `${rootGetters["apiUrl/getApiUrl"]}orders/myorders`,
         config
       );
       commit(ORDER_LIST_SUCCESS, data);
@@ -263,7 +266,10 @@ export const actions = {
       commit(ORDER_LIST_FAIL, errorMessage);
     }
   },
-  async getOrdersListByUserId({ commit, state, rootState }, userId) {
+  async getOrdersListByUserId(
+    { commit, state, rootState, rootGetters },
+    userId
+  ) {
     try {
       commit(ORDER_LIST_BY_USER_ID_REQUEST);
       const {
@@ -275,7 +281,7 @@ export const actions = {
         }
       };
       const { data } = await this.$axios.get(
-        `http://localhost:5050/api/orders/user/${userId}`,
+        `${rootGetters["apiUrl/getApiUrl"]}orders/user/${userId}`,
         config
       );
       commit(ORDER_LIST_BY_USER_ID_SUCCESS, data);

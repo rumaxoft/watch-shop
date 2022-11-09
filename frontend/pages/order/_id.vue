@@ -173,7 +173,7 @@ export default {
     ...mapMutations("orders", ["ORDER_PAY_RESET"]),
     async addPaypalScript() {
       const { data: clientId } = await this.$axios.get(
-        "http://localhost:5050/api/config/paypal"
+        `${this.getApiUrl}/config/paypal`
       );
       const script = document.createElement("script");
       script.type = "text/javascript";
@@ -232,6 +232,7 @@ export default {
       "loadingPay",
       "alert"
     ]),
+    ...mapGetters('apiUrl', ["getApiUrl"]),
     ...mapGetters("users", ["userInfo"]),
     shippingAddress() {
       return [

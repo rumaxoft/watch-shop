@@ -80,11 +80,11 @@ export const mutations = {
 };
 
 export const actions = {
-  async addToCart({ commit, state }, payload) {
+  async addToCart({ commit, state, rootState, rootGetters }, payload) {
     try {
       commit(CART_ADD_REQUEST);
       const { data } = await this.$axios.get(
-        `http://localhost:5050/api/products/${payload.productId}`
+        `${rootGetters["apiUrl/getApiUrl"]}/products/${payload.productId}`
       );
       if (!data) throw new Error("такого товара не существует");
       const item = {
@@ -109,11 +109,11 @@ export const actions = {
       commit(CART_ADD_FAIL, errorMessage);
     }
   },
-  async removeFromCart({ commit, state }, payload) {
+  async removeFromCart({ commit, state, rootState, rootGetters }, payload) {
     try {
       commit(CART_REMOVE_REQUEST);
       const { data } = await this.$axios.get(
-        `http://localhost:5050/api/products/${payload.productId}`
+        `${rootGetters["apiUrl/getApiUrl"]}/products/${payload.productId}`
       );
 
       if (!data) throw new Error("такого товара не существует");

@@ -16,7 +16,7 @@ try {
 }
 
 // @desc    Auth user & get token
-// @route   POST /api/users/login
+// @route   POST /API_PREFIX/users/login
 // @access  Public
 const authUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body
@@ -38,7 +38,7 @@ const authUser = asyncHandler(async (req, res) => {
 })
 
 // @desc    Register a new user
-// @route   POST /api/users
+// @route   POST /API_PREFIX/users
 // @access  Public
 const registerUser = asyncHandler(async (req, res) => {
   const { name, email, password } = req.body
@@ -55,7 +55,8 @@ const registerUser = asyncHandler(async (req, res) => {
     emailToken,
   })
   if (user) {
-    const link = `${process.env.BASE_URL}/user/verify/${emailToken}`
+    const link = `${process.env.API_PREFIX_BROWSER}/${process.env.API_PREFIX}/users/verify/${emailToken}`
+    console.log('link', link)
     try {
       const html = emailConfirmationHTML(user.name, link)
       const info = await sendEmailTimeweb({
@@ -94,7 +95,7 @@ const registerUser = asyncHandler(async (req, res) => {
 })
 
 // @desc    Get user profile
-// @route   GET /api/users/profile
+// @route   GET /API_PREFIX/users/profile
 // @access  Private
 const getUserProfile = asyncHandler(async (req, res) => {
   const user = await User.findById(req.user._id)
@@ -114,7 +115,7 @@ const getUserProfile = asyncHandler(async (req, res) => {
 })
 
 // @desc    Update user profile
-// @route   PUT /api/users/profile
+// @route   PUT /API_PREFIX/users/profile
 // @access  Private
 const updateUserProfile = asyncHandler(async (req, res) => {
   const user = await User.findById(req.user._id)
@@ -152,7 +153,7 @@ const updateUserProfile = asyncHandler(async (req, res) => {
 })
 
 // @desc    Get all users
-// @route   GET /api/users
+// @route   GET /API_PREFIX/users
 // @access  Private/Admin
 const getUsers = asyncHandler(async (req, res) => {
   const users = await User.find({})
@@ -160,7 +161,7 @@ const getUsers = asyncHandler(async (req, res) => {
 })
 
 // @desc    Delete user
-// @route   DELETE /api/users/:id
+// @route   DELETE /API_PREFIX/users/:id
 // @access  Private/Admin
 const deleteUser = asyncHandler(async (req, res) => {
   const user = await User.findById(req.params.id)
@@ -175,7 +176,7 @@ const deleteUser = asyncHandler(async (req, res) => {
 })
 
 // @desc    Get user by ID
-// @route   GET /api/users/:id
+// @route   GET /API_PREFIX/users/:id
 // @access  Private/Admin
 const getUserById = asyncHandler(async (req, res) => {
   const user = await User.findById(req.params.id).select('-password')
@@ -189,7 +190,7 @@ const getUserById = asyncHandler(async (req, res) => {
 })
 
 // @desc    Update user
-// @route   PUT /api/users/:id
+// @route   PUT /API_PREFIX/users/:id
 // @access  Private/Admin
 const updateUser = asyncHandler(async (req, res) => {
   const user = await User.findById(req.params.id)
@@ -214,10 +215,10 @@ const updateUser = asyncHandler(async (req, res) => {
 })
 
 // @desc    Update user's verified property
-// @route   PUT /api/users/verify
+// @route   GET /API_PREFIX/users/verify/:token
 // @access  Public
 const verifyUser = asyncHandler(async (req, res) => {
-  const token = req.body.token
+  const token = req.params.token
   if (!token) {
     res.status(400)
     throw new Error('email token required')
@@ -231,9 +232,15 @@ const verifyUser = asyncHandler(async (req, res) => {
   user.isVerifiedEmail = true
   user.emailToken = 'no token'
   user.save()
-  res.json({
-    message: 'email подтвержден',
-  })
+  res.set('Content-Type', 'text/html');
+  res.send(Buffer.from(`<div style="display: flex;
+                                    justify-content: center;
+                                    align-items: center;
+                                    width: 100%;
+                                    height: 100vh;"
+                                    >
+                                      <h1>Ваш Email подтвержден &check;</h1>
+                            </div>`));
 })
 
 export {
